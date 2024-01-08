@@ -3,7 +3,6 @@ import { z } from 'zod'
 import crypto, { randomUUID } from 'node:crypto'
 import { validateSchema } from '../middlewares/validate-schema-middleware'
 import { knex } from '../database'
-import { Tables } from 'knex/types/tables'
 
 const createUserSchema = z.object({
   name: z.string(),
@@ -24,7 +23,6 @@ export async function userRoutes(app: FastifyInstance) {
         .returning('*')
         .first()
 
-      console.log('1')
       if (checkUser) {
         reply.cookie('sessionId', checkUser.session_id, {
           path: '/',
